@@ -10,7 +10,7 @@ Docker image for [Ctrip/Apollo](https://github.com/ctripcorp/apollo)(携程Apoll
 - Apollo Version: `0.10.0`
 
 ## 使用 Docker Compose 启动
-
+建立一个`docker-compose.yaml`文件,内容如下,将mysql数据库地址与库名以及账号密码为本地的即可:
 ``` yaml
 version: '2'
 services:
@@ -43,7 +43,7 @@ services:
 
 **启动前确认对应的数据库已建立,且数据库账号有权操作该库,否则将会启动失败.**[创建数据库指导](https://github.com/ctripcorp/apollo/wiki/%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97#21-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93)
 
-本镜像启动巨慢,且巨耗内存,因此有多开需求的玩家请注意小鸡的内存是否够用. 
+镜像启动慢,且耗内存,因此有多开需求的请注意小鸡的内存是否够用. 
 
 测试机为4核2.6G的x5650：
 
