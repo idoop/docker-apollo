@@ -63,7 +63,7 @@ Portal:
 > - PORTAL_DB: portal 的数据库地址, 留空则代表不开启
 > - PORTAL_DB_USER: 数据库用户
 > - PORTAL_DB_PWD: 数据库密码
-> - PORTAL_PORT: portal服务的端口,默认8070,若网络模式为host,可更改.
+> - PORTAL_PORT: portal服务的端口,默认8070.若网络模式为host,可更改.
 
 Dev:
 > - DEV_DB: dev 环境数据库地址, 留空则代表不开启
@@ -76,19 +76,19 @@ Fat:
 > - FAT_DB: fat 环境数据库地址, 留空则代表不开启
 > - FAT_DB_USER: 数据库用户
 > - FAT_DB_PWD: 数据库密码
-> - ADMIN_FAT_PORT: admin服务端口,默认8091,若网络模式为host,可更改.
-> - CONFIG_FAT_PORT: config服务端口,默认8081,若网络模式为host,可更改,需要与本数据库中的ServerConfig端口相同.
+> - ADMIN_FAT_PORT: admin服务端口,默认8091.若网络模式为host,可更改.
+> - CONFIG_FAT_PORT: config服务端口,默认8081.若网络模式为host,可更改,需要与本数据库中的ServerConfig端口相同.
 
 Uat:
-> - UAT_DB: fat 环境数据库地址, 留空则代表不开启
+> - UAT_DB: uat 环境数据库地址, 留空则代表不开启
 > - UAT_DB_USER: 数据库用户
 > - UAT_DB_PWD: 数据库密码
-> - ADMIN_UAT_PORT: admin服务端口,默认8092,若网络模式为host,可更改.
-> - CONFIG_UAT_PORT: config服务端口,默认8082,若网络模式为host,可更改,需要与本数据库中的ServerConfig端口相同.
+> - ADMIN_UAT_PORT: admin服务端口,默认8092.若网络模式为host,可更改.
+> - CONFIG_UAT_PORT: config服务端口,默认8082.若网络模式为host,可更改,需要与本数据库中的ServerConfig端口相同.
 
 Pro:
-> - PRO_DB: fat 环境数据库地址, 留空则代表不开启
+> - PRO_DB: pro 环境数据库地址, 留空则代表不开启
 > - PRO_DB_USER: 数据库用户
 > - PRO_DB_PWD: 数据库密码
-> - ADMIN_PRO_PORT: admin服务端口,默认8093,若网络模式为host,可更改.
-> - CONFIG_PRO_PORT: config服务端口,默认8083,若网络模式为host,可更改,需要与本数据库中的ServerConfig端口相同.
+> - ADMIN_PRO_PORT: admin服务端口,默认8093.若网络模式为host,可更改.
+> - CONFIG_PRO_PORT: config服务端口,默认8083.若网络模式为host,可更改,需要与本数据库中的ServerConfig端口相同.
