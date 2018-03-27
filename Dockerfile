@@ -20,9 +20,9 @@ RUN wget ${APOLLO_URL} -O apollo.tar.gz && tar -zxf apollo.tar.gz && \
     rm apollo.tar.gz && test -e apollo-${VERSION} && \
     sed -i "s/db_password=/db_password=toor/g" apollo-${VERSION}/scripts/build.sh && \
     sed -i "s/^dev_meta.*/dev_meta=http:\/\/localhost:${CONFIG_DEV_PORT}/" apollo-${VERSION}/scripts/build.sh && \
-    sed -i "s/^fat_meta.*/fat_meta=http:\/\/localhost:${CONFIG_DEV_PORT}/" apollo-${VERSION}/scripts/build.sh && \
-    sed -i "s/^uat_meta.*/uat_meta=http:\/\/localhost:${CONFIG_DEV_PORT}/" apollo-${VERSION}/scripts/build.sh && \
-    sed -i "s/^pro_meta.*/pro_meta=http:\/\/localhost:${CONFIG_DEV_PORT}/" apollo-${VERSION}/scripts/build.sh && \
+    sed -i "s/^fat_meta.*/fat_meta=http:\/\/localhost:${CONFIG_FAT_PORT}/" apollo-${VERSION}/scripts/build.sh && \
+    sed -i "s/^uat_meta.*/uat_meta=http:\/\/localhost:${CONFIG_UAT_PORT}/" apollo-${VERSION}/scripts/build.sh && \
+    sed -i "s/^pro_meta.*/pro_meta=http:\/\/localhost:${CONFIG_PRO_PORT}/" apollo-${VERSION}/scripts/build.sh && \
     bash apollo-${VERSION}/scripts/build.sh && rm -rf /root/.m2 && \
     mkdir /apollo-admin/dev /apollo-admin/fat /apollo-admin/uat /apollo-admin/pro /apollo-config/dev /apollo-config/fat /apollo-config/uat /apollo-config/pro /apollo-portal -p && \
     unzip apollo-${VERSION}/apollo-portal/target/apollo-portal-${VERSION}-github.zip -d /apollo-portal && \
