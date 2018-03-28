@@ -1,7 +1,7 @@
 version: '2'
 services:
   apollo:
-    image: apollo
+    image: idoop/docker-apollo:latest
     container_name: apollo
     network_mode: "host"
     restart: always
@@ -21,10 +21,10 @@ services:
       FAT_DB_USER: root
       FAT_DB_PWD: password
 
-      UAT_DB: jdbc:mysql://10.0.0.8:3306/ApolloConfigDBUat?characterEncoding=utf8
+      #UAT_DB: jdbc:mysql://10.0.0.8:3306/ApolloConfigDBUat?characterEncoding=utf8
       UAT_DB_USER: root
       UAT_DB_PWD: password
 
-      PRO_DB: jdbc:mysql://10.0.0.8:3306/ApolloConfigDBPro?characterEncoding=utf8
+      #PRO_DB: jdbc:mysql://10.0.0.8:3306/ApolloConfigDBPro?characterEncoding=utf8
       PRO_DB_USER: root
       PRO_DB_PWD: password
