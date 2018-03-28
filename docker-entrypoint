@@ -77,8 +77,8 @@ if [ "$#" == "0" ];then
       sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.username=${PRO_DB_USER} \"" /apollo-admin/pro/scripts/startup.sh
     fi
     if [[ -n "${PRO_DB_PWD}" ]];then
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.passwrod=${PRO_DB_PWD} \"" /apollo-config/pro/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.passwrod=${PRO_DB_PWD} \"" /apollo-admin/pro/scripts/startup.sh
+      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.password=${PRO_DB_PWD} \"" /apollo-config/pro/scripts/startup.sh
+      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.password=${PRO_DB_PWD} \"" /apollo-admin/pro/scripts/startup.sh
     fi
     if [[ -n "${ADMIN_PRO_PORT}" ]];then
       sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${ADMIN_PRO_PORT}/" /apollo-admin/pro/scripts/startup.sh
