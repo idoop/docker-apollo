@@ -7,7 +7,7 @@
 [![ImageLayers Layers](https://img.shields.io/imagelayers/layers/idoop/docker-apollo/latest.svg)](https://hub.docker.com/r/idoop/docker-apollo/)
 
 Docker image for [Ctrip/Apollo](https://github.com/ctripcorp/apollo)(携程Apollo)
-- Apollo Version: `0.10.0`
+- Apollo Version: `0.10.1`
 
 ## 使用 Docker Compose 启动
 建立一个`docker-compose.yaml`文件,内容如下,将mysql数据库地址与库名以及账号密码为本地的即可:
