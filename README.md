@@ -7,7 +7,7 @@
 [![ImageLayers Layers](https://img.shields.io/imagelayers/layers/idoop/docker-apollo/latest.svg)](https://hub.docker.com/r/idoop/docker-apollo/)
 
 Docker image for [Ctrip/Apollo](https://github.com/ctripcorp/apollo)(携程Apollo)
-- Apollo Version: `0.10.1`
+- Apollo Version: `0.10.2`
 
 ## 使用 Docker Compose 启动
 建立一个`docker-compose.yaml`文件,内容如下,将mysql数据库地址与库名以及账号密码为本地的即可:
@@ -19,6 +19,9 @@ services:
     container_name: apollo
     hostname: apollo
     network_mode: "host"
+    # 如果需要查看日志,挂载容器中的/opt路径出来即可.
+    # volumes:
+    #   - ./logs:/opt
     environment:
       # 开启Portal,默认端口: 8070
       PORTAL_DB: jdbc:mysql://192.168.1.28:3306/ApolloPortalDB?characterEncoding=utf8
@@ -36,7 +39,10 @@ services:
       FAT_DB_PWD: toor
       
       # 开启uat环境, 默认端口: config 8082, admin 8092
+      # UAT_DB: jdbc:mysql://192.168.1.28:3306/ApolloConfigDBUat?characterEncoding=utf8
+      
       # 开启pro环境, 默认端口: config 8083, admin 8093
+      # PRO_DB: jdbc:mysql://192.168.1.28:3306/ApolloConfigDBPro?characterEncoding=utf8
 ```
 
 *镜像包含Portal面板,以及Dev,Fat,Uat,Pro环境,若要开启相应环境,只需配置对应环境的env的数据库地址与账号密码。*

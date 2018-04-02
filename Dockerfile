@@ -1,7 +1,7 @@
 FROM maven:alpine
 MAINTAINER Swire Chen <idoop@msn.cn>
 
-ENV VERSION 0.10.1
+ENV VERSION 0.10.2
 ENV APOLLO_URL https://github.com/ctripcorp/apollo/archive/v${VERSION}.tar.gz
 
 ENV PORTAL_PORT 8070
