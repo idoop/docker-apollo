@@ -5,7 +5,7 @@ if [ "$#" == "0" ];then
 # dev
   if [[ -n "${DEV_URL}" ]];then
     sed -i -r "/-Ddev_meta=.*$/d" /apollo-portal/scripts/startup.sh
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Ddev_meta=${DEV_URL}/" /apollo-portal/scripts/startup.sh
+    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Ddev_meta=${DEV_URL}/\"" /apollo-portal/scripts/startup.sh
     
   elif [[ -n "${DEV_DB}" ]];then
     sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${DEV_DB} \"" /apollo-config/dev/scripts/startup.sh
@@ -24,7 +24,7 @@ if [ "$#" == "0" ];then
     if [[ -n "${CONFIG_DEV_PORT}" ]];then
       sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${CONFIG_DEV_PORT}/" /apollo-config/dev/scripts/startup.sh
       sed -i -r "/-Ddev_meta=.*$/d" /apollo-portal/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Ddev_meta=http://localhost:${CONFIG_DEV_PORT}/" /apollo-portal/scripts/startup.sh
+      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Ddev_meta=http://localhost:${CONFIG_DEV_PORT}/\"" /apollo-portal/scripts/startup.sh
     fi
     /apollo-config/dev/scripts/startup.sh
     /apollo-admin/dev/scripts/startup.sh
@@ -33,7 +33,7 @@ if [ "$#" == "0" ];then
 # fat
   if [[ -n "${FAT_URL}" ]];then
     sed -i -r "/-Dfat_meta=.*$/d" /apollo-portal/scripts/startup.sh
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dfat_meta=${FAT_URL}/" /apollo-portal/scripts/startup.sh
+    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dfat_meta=${FAT_URL}/\"" /apollo-portal/scripts/startup.sh
     
   elif [[ -n "${FAT_DB}" ]];then
     sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${FAT_DB} \"" /apollo-config/fat/scripts/startup.sh
@@ -52,7 +52,7 @@ if [ "$#" == "0" ];then
     if [[ -n "${CONFIG_FAT_PORT}" ]];then
       sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${CONFIG_FAT_PORT}/" /apollo-config/fat/scripts/startup.sh
       sed -i -r "/-Dfat_meta=.*$/d" /apollo-portal/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dfat_meta=http://localhost:${CONFIG_FAT_PORT}/" /apollo-portal/scripts/startup.sh
+      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dfat_meta=http://localhost:${CONFIG_FAT_PORT}/\"" /apollo-portal/scripts/startup.sh
     fi
     /apollo-config/fat/scripts/startup.sh
     /apollo-admin/fat/scripts/startup.sh 
@@ -61,7 +61,7 @@ if [ "$#" == "0" ];then
 # uat
   if [[ -n "${UAT_URL}" ]];then
     sed -i -r "/-Duat_meta=.*$/d" /apollo-portal/scripts/startup.sh
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Duat_meta=${UAT_URL}/" /apollo-portal/scripts/startup.sh
+    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Duat_meta=${UAT_URL}/\"" /apollo-portal/scripts/startup.sh
     
   elif [[ -n "${UAT_DB}" ]];then
     sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${UAT_DB} \"" /apollo-config/uat/scripts/startup.sh
@@ -80,7 +80,7 @@ if [ "$#" == "0" ];then
     if [[ -n "${CONFIG_UAT_PORT}" ]];then
       sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${CONFIG_UAT_PORT}/" /apollo-config/uat/scripts/startup.sh
       sed -i -r "/-Duat_meta=.*$/d" /apollo-portal/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Duat_meta=http://localhost:${CONFIG_UAT_PORT}/" /apollo-portal/scripts/startup.sh
+      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Duat_meta=http://localhost:${CONFIG_UAT_PORT}/\"" /apollo-portal/scripts/startup.sh
     fi
     /apollo-config/uat/scripts/startup.sh
     /apollo-admin/uat/scripts/startup.sh 
@@ -89,7 +89,7 @@ if [ "$#" == "0" ];then
 # pro
   if [[ -n "${PRO_URL}" ]];then
     sed -i -r "/-Dpro_meta=.*$/d" /apollo-portal/scripts/startup.sh
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dpro_meta=${PRO_URL}/" /apollo-portal/scripts/startup.sh
+    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dpro_meta=${PRO_URL}/\"" /apollo-portal/scripts/startup.sh
   elif [[ -n "${PRO_DB}" ]];then
     sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${PRO_DB} \"" /apollo-config/pro/scripts/startup.sh
     sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${PRO_DB} \"" /apollo-admin/pro/scripts/startup.sh
@@ -107,7 +107,7 @@ if [ "$#" == "0" ];then
     if [[ -n "${CONFIG_PRO_PORT}" ]];then
       sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${CONFIG_PRO_PORT}/" /apollo-config/pro/scripts/startup.sh
       sed -i -r "/-Dpro_meta=.*$/d" /apollo-portal/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dpro_meta=http://localhost:${CONFIG_PRO_PORT}/" /apollo-portal/scripts/startup.sh
+      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dpro_meta=http://localhost:${CONFIG_PRO_PORT}/\"" /apollo-portal/scripts/startup.sh
     fi
     /apollo-config/pro/scripts/startup.sh
     /apollo-admin/pro/scripts/startup.sh 
