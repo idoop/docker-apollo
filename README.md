@@ -18,6 +18,7 @@ services:
     image: idoop/docker-apollo:latest
     container_name: apollo
     hostname: apollo
+    # 目前只能用host模式,否则将出现504错误,如果想改端口,参考下方修改端口的环境变量
     network_mode: "host"
     # 如果需要查看日志,挂载容器中的/opt路径出来即可.
     # volumes:
@@ -37,20 +38,18 @@ services:
       FAT_DB: jdbc:mysql://192.168.1.28:3306/ApolloConfigDBFat?characterEncoding=utf8
       FAT_DB_USER: root
       FAT_DB_PWD: toor
-      
-      
-      # uat环境, 默认端口: config 8082, admin 8092
-      # UAT_DB: jdbc:mysql://192.168.1.28:3306/ApolloConfigDBUat?characterEncoding=utf8
+      # 可修改端口.
+      FAT_CONFIG_PORT: 8050
+      FAT_ADMIN_PORT: 8051
+           
       # 指定远程uat地址
-      UAT_URL: http://192.168.1.2:8080
+      #UAT_URL: http://192.168.1.2:8080
       
-      # pro环境, 默认端口: config 8083, admin 8093
-      # PRO_DB: jdbc:mysql://192.168.1.28:3306/ApolloConfigDBPro?characterEncoding=utf8
       # 指定远程pro地址
-      PRO_URL: http://www.baidu.com:8080
+      #PRO_URL: http://www.baidu.com:8080
 ```
 
-*镜像包含Portal面板,以及Dev,Fat,Uat,Pro环境,若要开启相应环境,只需配置对应环境的env的数据库地址与账号密码。*
+*镜像包含Portal面板,以及Dev,Fat,Uat,Pro环境,皆可独立使用.若要开启相应环境,只需配置对应环境的env的数据库地址与账号密码。*
 
 **启动前确认对应的数据库已建立,且数据库账号有权操作该库,否则将会启动失败.**[创建数据库指导](https://github.com/ctripcorp/apollo/wiki/%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97#21-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93)
 
@@ -75,35 +74,38 @@ Portal:
 > - PORTAL_DB_USER: 数据库用户
 > - PORTAL_DB_PWD: 数据库密码
 > - PORTAL_PORT: portal服务的端口,默认8070.若网络模式为host,可更改.
-
+> - DEV_URL: 远程dev服务,格式为http://**ip:port** 或 **domain:port** 不可与DEV_DB同时指定,数据库中ServerConfig中eureka.service.url的地址与端口需正确.
+> - FAT_URL: 远程fat服务,格式为http://**ip:port** 或 **domain:port** 不可与FAT_DB同时指定,数据库中ServerConfig中eureka.service.url的地址与端口需正确.
+> - UAT_URL: 远程uat服务,格式为http://**ip:port** 或 **domain:port** 不可与UAT_DB同时指定,数据库中ServerConfig中eureka.service.url的地址与端口需正确.
+> - PRO_URL: 远程pro服务,格式为http://**ip:port** 或 **domain:port** 不可与PRO_DB同时指定,数据库中ServerConfig中eureka.service.url的地址与端口需正确.
 Dev:
-> - DEV_URL: 远程dev服务,格式为http://ip:port或http://domain:port 不可与DEV_DB同时指定,且数据库中ServerConfig中eureka.service.url不可为localhost,必须与本url的地址端口一致.
-> - DEV_DB: dev 环境数据库地址, 留空则代表不开启服务
+> - DEV_IP: 若使用分布式负载均衡,则输入负载均衡IP.
+> - DEV_DB: dev 环境数据库地址, 留空则代表不开启
 > - DEV_DB_USER: 数据库用户
 > - DEV_DB_PWD: 数据库密码
-> - ADMIN_DEV_PORT: dev 环境admin服务端口,默认8090,若网络模式为host,可指定更改.
-> - CONFIG_DEV_PORT: dev 环境config服务端口,默认8080,若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
+> - DEV_ADMIN_PORT: admin服务端口,默认8090,若网络模式为host,可指定更改.
+> - DEV_CONFIG_PORT: config服务端口,默认8080,若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
 
 Fat:
-> - FAT_URL: 远程fat服务,格式为http://ip:port或http://domain:port 不可与FAT_DB同时指定,且数据库中ServerConfig中eureka.service.url不可为localhost,必须与本url的地址端口一致.
+> - FAT_IP: 若使用分布式负载均衡,则输入负载均衡IP.
 > - FAT_DB: fat 环境数据库地址, 留空则代表不开启
 > - FAT_DB_USER: 数据库用户
 > - FAT_DB_PWD: 数据库密码
-> - ADMIN_FAT_PORT: admin服务端口,默认8091.若网络模式为host,可更改.
-> - CONFIG_FAT_PORT: config服务端口,默认8081.若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
+> - FAT_ADMIN_PORT: admin服务端口,默认8091.若网络模式为host,可指定更改.
+> - FAT_CONFIG_PORT: config服务端口,默认8081.若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
 
 Uat:
-> - UAT_URL: 远程uat服务,格式为http://ip:port或http://domain:port 不可与UAT_DB同时指定,且数据库中ServerConfig中eureka.service.url不可为localhost,必须与本url的地址端口一致.
+> - UAT_IP: 若使用分布式负载均衡,则输入负载均衡IP.
 > - UAT_DB: uat 环境数据库地址, 留空则代表不开启
 > - UAT_DB_USER: 数据库用户
 > - UAT_DB_PWD: 数据库密码
-> - ADMIN_UAT_PORT: admin服务端口,默认8092.若网络模式为host,可指定更改.
-> - CONFIG_UAT_PORT: config服务端口,默认8082.若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
+> - UAT_ADMIN_PORT: admin服务端口,默认8092.若网络模式为host,可指定更改.
+> - UAT_CONFIG_PORT: config服务端口,默认8082.若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
 
 Pro:
-> - PRO_URL: 远程pro服务,格式为http://ip:port或http://domain:port 不可与PRO_DB同时指定,且数据库中ServerConfig中eureka.service.url不可为localhost,必须与本url的地址端口一致.
+> - PRO_IP: 若使用分布式负载均衡,则输入负载均衡IP.
 > - PRO_DB: pro 环境数据库地址, 留空则代表不开启
 > - PRO_DB_USER: 数据库用户
 > - PRO_DB_PWD: 数据库密码
-> - ADMIN_PRO_PORT: admin服务端口,默认8093.若网络模式为host,可指定更改.
-> - CONFIG_PRO_PORT: config服务端口,默认8083.若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
+> - PRO_ADMIN_PORT: admin服务端口,默认8093.若网络模式为host,可指定更改.
+> - PRO_CONFIG_PORT: config服务端口,默认8083.若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
