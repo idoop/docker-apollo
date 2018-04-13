@@ -78,6 +78,7 @@ Portal:
 > - FAT_URL: 远程fat服务,格式为http://**ip:port** 或 **domain:port** 不可与FAT_DB同时指定,数据库中ServerConfig中eureka.service.url的地址与端口需正确.
 > - UAT_URL: 远程uat服务,格式为http://**ip:port** 或 **domain:port** 不可与UAT_DB同时指定,数据库中ServerConfig中eureka.service.url的地址与端口需正确.
 > - PRO_URL: 远程pro服务,格式为http://**ip:port** 或 **domain:port** 不可与PRO_DB同时指定,数据库中ServerConfig中eureka.service.url的地址与端口需正确.
+
 Dev:
 > - DEV_IP: 若使用分布式负载均衡,则输入负载均衡IP.
 > - DEV_DB: dev 环境数据库地址, 留空则代表不开启
