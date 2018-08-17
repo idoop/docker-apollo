@@ -1,20 +1,18 @@
 FROM maven:alpine
 MAINTAINER Swire Chen <idoop@msn.cn>
 
-ENV VERSION 0.11.0
-ENV APOLLO_URL https://github.com/ctripcorp/apollo/archive/v${VERSION}.tar.gz
+ENV PORTAL_PORT=8070 \
+    ADMIN_DEV_PORT=8090 \
+    ADMIN_FAT_PORT=8091 \
+    ADMIN_UAT_PORT=8092 \
+    ADMIN_PRO_PORT=8093 \
+    CONFIG_DEV_PORT=8080 \
+    CONFIG_FAT_PORT=8081 \
+    CONFIG_UAT_PORT=8082 \
+    CONFIG_PRO_PORT=8083
 
-ENV PORTAL_PORT 8070
-
-ENV ADMIN_DEV_PORT 8090
-ENV ADMIN_FAT_PORT 8091
-ENV ADMIN_UAT_PORT 8092
-ENV ADMIN_PRO_PORT 8093
-
-ENV CONFIG_DEV_PORT 8080
-ENV CONFIG_FAT_PORT 8081
-ENV CONFIG_UAT_PORT 8082
-ENV CONFIG_PRO_PORT 8083
+ARG VERSION=1.0.0
+ARG APOLLO_URL=https://github.com/ctripcorp/apollo/archive/v${VERSION}.tar.gz
 
 RUN wget ${APOLLO_URL} -O apollo.tar.gz && tar -zxf apollo.tar.gz && \
     rm apollo.tar.gz && test -e apollo-${VERSION} && \

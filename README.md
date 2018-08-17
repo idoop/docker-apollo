@@ -10,7 +10,8 @@ Docker image for [Ctrip/Apollo](https://github.com/ctripcorp/apollo)(携程Apoll
 
 ## Docker Tags: 
 
-- `0.11.0` `latest`
+- `1.0.0` `latest`
+- `0.11.0` 
 - `0.10.2`
 
 ## 使用 Docker Compose 启动
