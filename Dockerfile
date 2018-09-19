@@ -1,7 +1,8 @@
 FROM maven:alpine
 MAINTAINER Swire Chen <idoop@msn.cn>
 
-ENV PORTAL_PORT=8070 \
+ENV VERSION=1.0.0 \
+    PORTAL_PORT=8070 \
     ADMIN_DEV_PORT=8090 \
     ADMIN_FAT_PORT=8091 \
     ADMIN_UAT_PORT=8092 \
@@ -11,7 +12,6 @@ ENV PORTAL_PORT=8070 \
     CONFIG_UAT_PORT=8082 \
     CONFIG_PRO_PORT=8083
 
-ARG VERSION=1.0.0
 ARG APOLLO_URL=https://github.com/ctripcorp/apollo/archive/v${VERSION}.tar.gz
 
 RUN wget ${APOLLO_URL} -O apollo.tar.gz && tar -zxf apollo.tar.gz && \
@@ -23,24 +23,9 @@ RUN wget ${APOLLO_URL} -O apollo.tar.gz && tar -zxf apollo.tar.gz && \
         -e "s/^pro_meta.*/pro_meta=http:\/\/localhost:${CONFIG_PRO_PORT}/" -i apollo-${VERSION}/scripts/build.sh && \
     bash apollo-${VERSION}/scripts/build.sh && rm -rf /root/.m2 && \
     mkdir /apollo-admin/dev /apollo-admin/fat /apollo-admin/uat /apollo-admin/pro /apollo-config/dev /apollo-config/fat /apollo-config/uat /apollo-config/pro /apollo-portal -p && \
-    unzip apollo-${VERSION}/apollo-portal/target/apollo-portal-${VERSION}-github.zip -d /apollo-portal && \
-    sed -e "s/^SERVER_PORT=.*$/SERVER_PORT=$PORTAL_PORT/" -i /apollo-portal/scripts/startup.sh && \
-    unzip apollo-${VERSION}/apollo-adminservice/target/apollo-adminservice-${VERSION}-github.zip -d /apollo-admin/dev && \
-    unzip apollo-${VERSION}/apollo-adminservice/target/apollo-adminservice-${VERSION}-github.zip -d /apollo-admin/fat && \
-    unzip apollo-${VERSION}/apollo-adminservice/target/apollo-adminservice-${VERSION}-github.zip -d /apollo-admin/uat && \
-    unzip apollo-${VERSION}/apollo-adminservice/target/apollo-adminservice-${VERSION}-github.zip -d /apollo-admin/pro && \
-    sed -e "s/^SERVER_PORT=.*$/SERVER_PORT=${ADMIN_DEV_PORT}/"  \
-        -e "s/^SERVER_PORT=.*$/SERVER_PORT=${ADMIN_FAT_PORT}/"  \
-        -e "s/^SERVER_PORT=.*$/SERVER_PORT=${ADMIN_UAT_PORT}/"  \
-        -e "s/^SERVER_PORT=.*$/SERVER_PORT=${ADMIN_PRO_PORT}/" -i /apollo-admin/pro/scripts/startup.sh && \
-    unzip apollo-${VERSION}/apollo-configservice/target/apollo-configservice-${VERSION}-github.zip -d /apollo-config/dev && \
-    unzip apollo-${VERSION}/apollo-configservice/target/apollo-configservice-${VERSION}-github.zip -d /apollo-config/fat && \
-    unzip apollo-${VERSION}/apollo-configservice/target/apollo-configservice-${VERSION}-github.zip -d /apollo-config/uat && \
-    unzip apollo-${VERSION}/apollo-configservice/target/apollo-configservice-${VERSION}-github.zip -d /apollo-config/pro && \
-    sed -e "s/^SERVER_PORT=.*$/SERVER_PORT=${CONFIG_DEV_PORT}/" \
-        -e "s/^SERVER_PORT=.*$/SERVER_PORT=${CONFIG_FAT_PORT}/" \
-        -e "s/^SERVER_PORT=.*$/SERVER_PORT=${CONFIG_UAT_PORT}/" \
-        -e "s/^SERVER_PORT=.*$/SERVER_PORT=${CONFIG_PRO_PORT}/" -i /apollo-config/pro/scripts/startup.sh && \
+    mv apollo-${VERSION}/apollo-portal/target/apollo-portal-${VERSION}-github.zip  \
+       apollo-${VERSION}/apollo-adminservice/target/apollo-adminservice-${VERSION}-github.zip \
+       apollo-${VERSION}/apollo-configservice/target/apollo-configservice-${VERSION}-github.zip / && \
     rm -rf apollo-${VERSION}
 
 COPY docker-entrypoint /usr/local/bin/docker-entrypoint
