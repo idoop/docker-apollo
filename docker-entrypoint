@@ -1,144 +1,56 @@
 #!/bin/bash
 set -e
-if [ "$#" == "0" ];then
+set -x
 
-# dev
-  if [[ -n "${DEV_URL}" ]];then
-    sed -i -r "/-Ddev_meta=.*$/d" /apollo-portal/scripts/startup.sh
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Ddev_meta=${DEV_URL}/\"" /apollo-portal/scripts/startup.sh
+function startENV()
+{
+    targetENV=${1}
+    targetDb=${2}
+    targetDbUser=${3}
+    targetDbPwd=${4}
+    targetAdminPort=${5}
+    targetConfigPort=${6}
+    targetENVIP=${7}
+  if [[ ! -d "/apollo-admin/${targetENV}/scripts" ]];then
+    unzip /apollo-adminservice-${VERSION}-github.zip -d /apollo-admin/${targetENV}
+    unzip /apollo-configservice-${VERSION}-github.zip -d /apollo-config/${targetENV}
     
-  elif [[ -n "${DEV_DB}" ]];then
-    unzip /apollo-adminservice-${VERSION}-github.zip -d /apollo-admin/dev
-    unzip /apollo-configservice-${VERSION}-github.zip -d /apollo-config/dev
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${DEV_DB} \"" /apollo-config/dev/scripts/startup.sh
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${DEV_DB} \"" /apollo-admin/dev/scripts/startup.sh
-    if [[ -n "${DEV_DB_USER}" ]];then
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.username=${DEV_DB_USER} \"" /apollo-config/dev/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.username=${DEV_DB_USER} \"" /apollo-admin/dev/scripts/startup.sh
-    fi
-    if [[ -n "${DEV_DB_PWD}" ]];then
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.password=${DEV_DB_PWD} \"" /apollo-config/dev/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.password=${DEV_DB_PWD} \"" /apollo-admin/dev/scripts/startup.sh
-    fi
-    if [[ -n "${DEV_IP}" ]];then
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Deureka.instance.ip-address=${DEV_IP} \"" /apollo-config/dev/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Deureka.instance.ip-address=${DEV_IP} \"" /apollo-admin/dev/scripts/startup.sh
-    fi
-    if [[ -n "${DEV_ADMIN_PORT}" ]];then
-      sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${DEV_ADMIN_PORT}/" /apollo-admin/dev/scripts/startup.sh
-    fi
-    if [[ -n "${DEV_CONFIG_PORT}" ]];then
-      sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${DEV_CONFIG_PORT}/" /apollo-config/dev/scripts/startup.sh
-      sed -i -r "/-Ddev_meta=.*$/d" /apollo-portal/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Ddev_meta=http://localhost:${DEV_CONFIG_PORT}/\"" /apollo-portal/scripts/startup.sh
-    fi
-    /apollo-config/dev/scripts/startup.sh
-    /apollo-admin/dev/scripts/startup.sh
-  fi
-
-# fat
-  if [[ -n "${FAT_URL}" ]];then
-    sed -i -r "/-Dfat_meta=.*$/d" /apollo-portal/scripts/startup.sh
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dfat_meta=${FAT_URL}/\"" /apollo-portal/scripts/startup.sh
+    #DB
+    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${targetDb} \"" /apollo-config/${targetENV}/scripts/startup.sh
+    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${targetDb} \"" /apollo-admin/${targetENV}/scripts/startup.sh
     
-  elif [[ -n "${FAT_DB}" ]];then
-    unzip /apollo-adminservice-${VERSION}-github.zip -d /apollo-admin/fat
-    unzip /apollo-configservice-${VERSION}-github.zip -d /apollo-config/fat
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${FAT_DB} \"" /apollo-config/fat/scripts/startup.sh
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${FAT_DB} \"" /apollo-admin/fat/scripts/startup.sh
-    if [[ -n "${FAT_DB_USER}" ]];then
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.username=${FAT_DB_USER} \"" /apollo-config/fat/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.username=${FAT_DB_USER} \"" /apollo-admin/fat/scripts/startup.sh
-    fi
-    if [[ -n "${FAT_DB_PWD}" ]];then
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.password=${FAT_DB_PWD} \"" /apollo-config/fat/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.password=${FAT_DB_PWD} \"" /apollo-admin/fat/scripts/startup.sh
-    fi
-    if [[ -n "${FAT_IP}" ]];then
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Deureka.instance.ip-address=${FAT_IP} \"" /apollo-config/fat/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Deureka.instance.ip-address=${FAT_IP} \"" /apollo-admin/fat/scripts/startup.sh
-    fi
-    if [[ -n "${FAT_ADMIN_PORT}" ]];then
-      sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${FAT_ADMIN_PORT}/" /apollo-admin/fat/scripts/startup.sh
-    fi
-    if [[ -n "${FAT_CONFIG_PORT}" ]];then
-      sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${FAT_CONFIG_PORT}/" /apollo-config/fat/scripts/startup.sh
-      sed -i -r "/-Dfat_meta=.*$/d" /apollo-portal/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dfat_meta=http://localhost:${FAT_CONFIG_PORT}/\"" /apollo-portal/scripts/startup.sh
-    fi
-    /apollo-config/fat/scripts/startup.sh
-    /apollo-admin/fat/scripts/startup.sh 
-  fi
+    #DB User
+    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.username=${targetDbUser} \"" /apollo-config/${targetENV}/scripts/startup.sh
+    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.username=${targetDbUser} \"" /apollo-admin/${targetENV}/scripts/startup.sh
 
-# uat
-  if [[ -n "${UAT_URL}" ]];then
-    sed -i -r "/-Duat_meta=.*$/d" /apollo-portal/scripts/startup.sh
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Duat_meta=${UAT_URL}/\"" /apollo-portal/scripts/startup.sh
-    
-  elif [[ -n "${UAT_DB}" ]];then
-    unzip /apollo-adminservice-${VERSION}-github.zip -d /apollo-admin/uat
-    unzip /apollo-configservice-${VERSION}-github.zip -d /apollo-config/uat
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${UAT_DB} \"" /apollo-config/uat/scripts/startup.sh
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${UAT_DB} \"" /apollo-admin/uat/scripts/startup.sh
-    if [[ -n "${UAT_DB_USER}" ]];then
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.username=${UAT_DB_USER} \"" /apollo-config/uat/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.username=${UAT_DB_USER} \"" /apollo-admin/uat/scripts/startup.sh
-    fi
-    if [[ -n "${UAT_DB_PWD}" ]];then
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.password=${UAT_DB_PWD} \"" /apollo-config/uat/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.password=${UAT_DB_PWD} \"" /apollo-admin/uat/scripts/startup.sh
-    fi
-    if [[ -n "${UAT_IP}" ]];then
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Deureka.instance.ip-address=${UAT_IP} \"" /apollo-config/uat/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Deureka.instance.ip-address=${UAT_IP} \"" /apollo-admin/uat/scripts/startup.sh
-    fi
-    if [[ -n "${UAT_ADMIN_PORT}" ]];then
-      sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${UAT_ADMIN_PORT}/" /apollo-admin/uat/scripts/startup.sh
-    fi
-    if [[ -n "${UAT_CONFIG_PORT}" ]];then
-      sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${UAT_CONFIG_PORT}/" /apollo-config/uat/scripts/startup.sh
-      sed -i -r "/-Duat_meta=.*$/d" /apollo-portal/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Duat_meta=http://localhost:${UAT_CONFIG_PORT}/\"" /apollo-portal/scripts/startup.sh
-    fi
-    /apollo-config/uat/scripts/startup.sh
-    /apollo-admin/uat/scripts/startup.sh 
-  fi
+    #DB Pwd
+    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.password=${targetDbPwd} \"" /apollo-config/${targetENV}/scripts/startup.sh
+    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.password=${targetDbPwd} \"" /apollo-admin/${targetENV}/scripts/startup.sh
 
-# pro
-  if [[ -n "${PRO_URL}" ]];then
-    sed -i -r "/-Dpro_meta=.*$/d" /apollo-portal/scripts/startup.sh
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dpro_meta=${PRO_URL}/\"" /apollo-portal/scripts/startup.sh
-  elif [[ -n "${PRO_DB}" ]];then
-    unzip /apollo-adminservice-${VERSION}-github.zip -d /apollo-admin/pro
-    unzip /apollo-configservice-${VERSION}-github.zip -d /apollo-config/pro
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${PRO_DB} \"" /apollo-config/pro/scripts/startup.sh
-    sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${PRO_DB} \"" /apollo-admin/pro/scripts/startup.sh
-    if [[ -n "${PRO_DB_USER}" ]];then
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.username=${PRO_DB_USER} \"" /apollo-config/pro/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.username=${PRO_DB_USER} \"" /apollo-admin/pro/scripts/startup.sh
+    #Server Port
+    if [[ -n "${targetAdminPort}" ]];then
+        sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${targetAdminPort}/" /apollo-admin/${targetENV}/scripts/startup.sh
     fi
-    if [[ -n "${PRO_DB_PWD}" ]];then
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.password=${PRO_DB_PWD} \"" /apollo-config/pro/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.password=${PRO_DB_PWD} \"" /apollo-admin/pro/scripts/startup.sh
+    if [[ -n "${targetConfigPort}" ]];then
+      	sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${targetConfigPort}/" /apollo-config/${targetENV}/scripts/startup.sh
+        if [[ -n "${PORTAL_DB}" ]];then
+            sed -i -r "/-D${targetENV}_meta=.*$/d" /apollo-portal/scripts/startup.sh
+            sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -D${targetENV}_meta=http://localhost:${targetConfigPort}/\"" /apollo-portal/scripts/startup.sh
+        fi
     fi
-    if [[ -n "${PRO_IP}" ]];then
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Deureka.instance.ip-address=${PRO_IP} \"" /apollo-config/pro/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Deureka.instance.ip-address=${PRO_IP} \"" /apollo-admin/pro/scripts/startup.sh
+    #Server Distribute 
+    if [[ -n "${targetENVIP}" ]];then
+        sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Deureka.instance.ip-address=${targetENVIP} \"" /apollo-config/${targetENV}/scripts/startup.sh
+	      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Deureka.instance.ip-address=${targetENVIP} \"" /apollo-admin/${targetENV}/scripts/startup.sh
     fi
-    if [[ -n "${PRO_ADMIN_PORT}" ]];then
-      sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${PRO_ADMIN_PORT}/" /apollo-admin/pro/scripts/startup.sh
-    fi
-    if [[ -n "${PRO_CONFIG_PORT}" ]];then
-      sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${PRO_CONFIG_PORT}/" /apollo-config/pro/scripts/startup.sh
-      sed -i -r "/-Dpro_meta=.*$/d" /apollo-portal/scripts/startup.sh
-      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dpro_meta=http://localhost:${PRO_CONFIG_PORT}/\"" /apollo-portal/scripts/startup.sh
-    fi
-    /apollo-config/pro/scripts/startup.sh
-    /apollo-admin/pro/scripts/startup.sh 
   fi
+    /apollo-config/${targetENV}/scripts/startup.sh
+    /apollo-admin/${targetENV}/scripts/startup.sh
+}
 
-# portal
-  if [[ -n "${PORTAL_DB}" ]];then
+function startPortal()
+{
+  if [[ ! -d "/apollo-portal/scripts" ]];then
     unzip /apollo-portal-${VERSION}-github.zip -d /apollo-portal
     sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dspring.datasource.url=${PORTAL_DB} \"" /apollo-portal/scripts/startup.sh
     if [[ -n "${PORTAL_DB_USER}" ]];then
@@ -150,10 +62,74 @@ if [ "$#" == "0" ];then
     if [[ -n "${PORTAL_PORT}" ]];then
       sed -i -e "s/^SERVER_PORT=.*$/SERVER_PORT=${PORTAL_PORT}/" /apollo-portal/scripts/startup.sh
     fi
-    /apollo-portal/scripts/startup.sh
-  fi
 
-  tail -f /dev/null
+    if [[ -n "${DEV_URL}" ]];then
+        sed -i -r "/-Ddev_meta=.*$/d" /apollo-portal/scripts/startup.sh
+        sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Ddev_meta=${DEV_URL}/\"" /apollo-portal/scripts/startup.sh
+    fi
+    if [[ -n "${FAT_URL}" ]];then
+        sed -i -r "/-Dfat_meta=.*$/d" /apollo-portal/scripts/startup.sh
+        sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dfat_meta=${FAT_URL}/\"" /apollo-portal/scripts/startup.sh
+    fi
+    if [[ -n "${UAT_URL}" ]];then
+        sed -i -r "/-Duat_meta=.*$/d" /apollo-portal/scripts/startup.sh
+        sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Duat_meta=${UAT_URL}/\"" /apollo-portal/scripts/startup.sh
+    fi
+    if [[ -n "${PRO_URL}" ]];then
+        sed -i -r "/-Dpro_meta=.*$/d" /apollo-portal/scripts/startup.sh
+        sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Dpro_meta=${PRO_URL}/\"" /apollo-portal/scripts/startup.sh
+    fi
+  fi
+}
+
+
+if [ "$#" == "0" ];then
+# portal
+    if [[ -n "${PORTAL_DB}" ]];then
+        startPortal
+    fi
+    
+# dev
+      if [[ -n "${DEV_URL}" ]];then
+          echo "conn remote dev server."
+      elif [[ -n "${DEV_DB}" ]];then
+          startENV dev ${DEV_DB} ${DEV_DB_USER} ${DEV_DB_PWD} ${DEV_ADMIN_PORT} ${DEV_CONFIG_PORT} ${DEV_IP}
+      fi
+    
+# fat
+      if [[ -n "${FAT_URL}" ]];then
+          echo "conn remote fat server."
+      elif [[ -n "${FAT_DB}" ]];then
+          startENV fat ${FAT_DB} ${FAT_DB_USER} ${FAT_DB_PWD} ${FAT_ADMIN_PORT} ${FAT_CONFIG_PORT} ${FAT_IP}
+      fi
+    
+# uat
+      if [[ -n "${UAT_URL}" ]];then
+          echo "conn remote fat server."
+      elif [[ -n "${UAT_DB}" ]];then
+          startENV uat ${UAT_DB} ${UAT_DB_USER} ${UAT_DB_PWD} ${UAT_ADMIN_PORT} ${UAT_CONFIG_PORT} ${UAT_IP}
+      fi
+    
+# pro
+      if [[ -n "${PRO_URL}" ]];then
+          echo "conn remote pro server."
+      elif [[ -n "${PRO_DB}" ]];then
+          startENV pro ${PRO_DB} ${PRO_DB_USER} ${PRO_DB_PWD} ${PRO_ADMIN_PORT} ${PRO_CONFIG_PORT} ${PRO_IP}
+    
+      fi
+# 若是晚于onfig服务启动,会找不到config
+      if [[ -n "${PORTAL_DB}" ]];then
+          /apollo-portal/scripts/startup.sh
+      fi
+    
+# healthcheck
+    loop=1
+    while [ ${loop} -eq 1 ]
+    do
+        /usr/local/bin/healthcheck.sh || exit 1
+        sleep 300
+    done
+    
 else
-  exec "$@"
+    exec "$@"
 fi

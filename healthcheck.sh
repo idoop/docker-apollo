@@ -3,15 +3,18 @@
 function checkENV()
 {
     condition=${1}
-    ps -ef | grep "jar" | grep "adminservice" | grep "${condition}" || exit 1
-    ps -ef | grep "jar" | grep "configservice" | grep "${condition}" || exit 1
+    ps -ef | grep "jar" | grep "adminservice" | grep "${condition}" > /dev/null || exit 1
+    echo "The ${condition} admin service is runing."
+    ps -ef | grep "jar" | grep "configservice" | grep "${condition}" > /dev/null || exit 1
+    echo "The ${condition} config service is runing."
 }
 
 
 
 # portal
 if [[ -n "${PORTAL_DB}" ]];then
-    ps -ef |grep jar |grep portal || exit 1
+    ps -ef |grep jar |grep portal > /dev/null || exit 1
+    echo "The portal service is runing."
 fi
 
 # dev
