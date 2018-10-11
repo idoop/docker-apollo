@@ -1,18 +1,21 @@
 FROM maven:alpine
 MAINTAINER Swire Chen <idoop@msn.cn>
 
-ENV VERSION=1.0.0 \
+ENV VERSION=1.1.0 \
     PORTAL_PORT=8070 \
-    ADMIN_DEV_PORT=8090 \
-    ADMIN_FAT_PORT=8091 \
-    ADMIN_UAT_PORT=8092 \
-    ADMIN_PRO_PORT=8093 \
-    CONFIG_DEV_PORT=8080 \
-    CONFIG_FAT_PORT=8081 \
-    CONFIG_UAT_PORT=8082 \
-    CONFIG_PRO_PORT=8083
+    DEV_ADMIN_PORT=8090 \
+    FAT_ADMIN_PORT=8091 \
+    UAT_ADMIN_PORT=8092 \
+    PRO_ADMIN_PORT=8093 \
+    DEV_CONFIG_PORT=8080 \
+    FAT_CONFIG_PORT=8081 \
+    UAT_CONFIG_PORT=8082 \
+    PRO_CONFIG_PORT=8083
 
 ARG APOLLO_URL=https://github.com/ctripcorp/apollo/archive/v${VERSION}.tar.gz
+
+COPY docker-entrypoint /usr/local/bin/docker-entrypoint
+COPY healthcheck.sh    /usr/local/bin/healthcheck.sh
 
 RUN wget ${APOLLO_URL} -O apollo.tar.gz && tar -zxf apollo.tar.gz && \
     rm apollo.tar.gz && test -e apollo-${VERSION} && \
@@ -26,10 +29,10 @@ RUN wget ${APOLLO_URL} -O apollo.tar.gz && tar -zxf apollo.tar.gz && \
     mv apollo-${VERSION}/apollo-portal/target/apollo-portal-${VERSION}-github.zip  \
        apollo-${VERSION}/apollo-adminservice/target/apollo-adminservice-${VERSION}-github.zip \
        apollo-${VERSION}/apollo-configservice/target/apollo-configservice-${VERSION}-github.zip / && \
-    rm -rf apollo-${VERSION}
+    rm -rf apollo-${VERSION} && \
+    chmod +x /usr/local/bin/docker-entrypoint /usr/local/bin/healthcheck.sh
 
-COPY docker-entrypoint /usr/local/bin/docker-entrypoint
-RUN chmod +x           /usr/local/bin/docker-entrypoint
+HEALTHCHECK --interval=5m --timeout=3s CMD bash /usr/local/bin/healthcheck.sh
 
 EXPOSE 8070 8080 8081 8082 8083 8090 8091 8092 8093
 # EXPOSE 80-60000

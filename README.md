@@ -8,14 +8,18 @@
 
 [Docker image](https://hub.docker.com/r/idoop/docker-apollo/) for [Ctrip/Apollo](https://github.com/ctripcorp/apollo)(携程Apollo)
 
+**本镜像包含Portal面板,以及Dev/Fat/Uat/Pro环境服务(All in one),皆可独立使用.**
+
+
 ## Docker Tags: 
 
-- `1.0.0` `latest`
+- `1.1.0` `latest`
+- `1.0.0` 
 - `0.11.0` 
 - `0.10.2`
 
 ## 使用 Docker Compose 启动
-建立一个`docker-compose.yaml`文件,内容如下,将mysql数据库地址与库名以及账号密码替换为自己的:
+假设想要开启Protal/Dev/Fat,那么建立一个`docker-compose.yaml`文件,内容大致如下所示,只需将mysql数据库地址与库名以及账号密码替换为自己的,并配置好数据库:
 ``` yaml
 version: '2'
 services:
@@ -49,14 +53,12 @@ services:
       #UAT_URL: http://192.168.1.2:8080
       
       # 指定远程pro地址
-      #PRO_URL: http://www.baidu.com:8080
+      #PRO_URL: http://www.example.com:8080
 ```
 
-*镜像包含Portal面板,以及Dev,Fat,Uat,Pro环境,皆可独立使用.若要开启相应环境,只需配置对应环境的env的数据库地址与账号密码。*
 
 **启动前确认对应的数据库已建立,且数据库账号有权操作该库,否则将会启动失败.**[创建数据库指导](https://github.com/ctripcorp/apollo/wiki/%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97#21-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93)
 
-**详细用法请看[Wiki](https://github.com/idoop/docker-apollo/wiki)**
 
 ## 资源消耗
 
@@ -76,8 +78,10 @@ services:
 
 ## Environment 参数
 
+若要开启相应服务,只需配置对应环境的env的数据库地址与账号密码,数据库密码不能为空。
+
 Portal:
-> - PORTAL_DB: portal 的数据库地址, 留空则代表不开启
+> - PORTAL_DB: portal 的数据库地址, 未设置则代表不开启该服务
 > - PORTAL_DB_USER: 数据库用户
 > - PORTAL_DB_PWD: 数据库密码
 > - PORTAL_PORT: portal服务的端口,默认8070.若网络模式为host,可更改.
@@ -88,7 +92,7 @@ Portal:
 
 Dev:
 > - DEV_IP: 若使用分布式负载均衡,则输入负载均衡IP.
-> - DEV_DB: dev 环境数据库地址, 留空则代表不开启
+> - DEV_DB: dev 环境数据库地址, 未设置则代表不开启该服务
 > - DEV_DB_USER: 数据库用户
 > - DEV_DB_PWD: 数据库密码
 > - DEV_ADMIN_PORT: admin服务端口,默认8090,若网络模式为host,可指定更改.
@@ -96,7 +100,7 @@ Dev:
 
 Fat:
 > - FAT_IP: 若使用分布式负载均衡,则输入负载均衡IP.
-> - FAT_DB: fat 环境数据库地址, 留空则代表不开启
+> - FAT_DB: fat 环境数据库地址, 未设置则代表不开启该服务
 > - FAT_DB_USER: 数据库用户
 > - FAT_DB_PWD: 数据库密码
 > - FAT_ADMIN_PORT: admin服务端口,默认8091.若网络模式为host,可指定更改.
@@ -104,7 +108,7 @@ Fat:
 
 Uat:
 > - UAT_IP: 若使用分布式负载均衡,则输入负载均衡IP.
-> - UAT_DB: uat 环境数据库地址, 留空则代表不开启
+> - UAT_DB: uat 环境数据库地址, 未设置则代表不开启该服务
 > - UAT_DB_USER: 数据库用户
 > - UAT_DB_PWD: 数据库密码
 > - UAT_ADMIN_PORT: admin服务端口,默认8092.若网络模式为host,可指定更改.
@@ -112,8 +116,12 @@ Uat:
 
 Pro:
 > - PRO_IP: 若使用分布式负载均衡,则输入负载均衡IP.
-> - PRO_DB: pro 环境数据库地址, 留空则代表不开启
+> - PRO_DB: pro 环境数据库地址, 未设置则代表不开启该服务
 > - PRO_DB_USER: 数据库用户
 > - PRO_DB_PWD: 数据库密码
 > - PRO_ADMIN_PORT: admin服务端口,默认8093.若网络模式为host,可指定更改.
 > - PRO_CONFIG_PORT: config服务端口,默认8083.若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
+
+## 用例
+
+> **详细用例请看[Wiki](https://github.com/idoop/docker-apollo/wiki)**
