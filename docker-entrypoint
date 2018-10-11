@@ -117,7 +117,7 @@ if [ "$#" == "0" ];then
           startENV pro ${PRO_DB} ${PRO_DB_USER} ${PRO_DB_PWD} ${PRO_ADMIN_PORT} ${PRO_CONFIG_PORT} ${PRO_IP}
     
       fi
-# 若是晚于onfig服务启动,会找不到config
+# 若是早于config服务启动,则有概率会一直找不到config
       if [[ -n "${PORTAL_DB}" ]];then
           /apollo-portal/scripts/startup.sh
       fi
