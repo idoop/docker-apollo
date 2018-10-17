@@ -10,7 +10,7 @@ function startENV()
     targetDbPwd=${4}
     targetAdminPort=${5}
     targetConfigPort=${6}
-    targetENVIP=${7}
+    targetEnvAddr=${7}
   if [[ ! -d "/apollo-admin/${targetENV}/scripts" ]];then
     unzip /apollo-adminservice-${VERSION}-github.zip -d /apollo-admin/${targetENV}
     unzip /apollo-configservice-${VERSION}-github.zip -d /apollo-config/${targetENV}
@@ -39,9 +39,9 @@ function startENV()
         fi
     fi
     #Server Distribute 
-    if [[ -n "${targetENVIP}" ]];then
-        sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Deureka.instance.ip-address=${targetENVIP} \"" /apollo-config/${targetENV}/scripts/startup.sh
-	      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Deureka.instance.ip-address=${targetENVIP} \"" /apollo-admin/${targetENV}/scripts/startup.sh
+    if [[ -n "${targetEnvAddr}" ]];then
+        sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Deureka.instance.ip-address=${targetEnvAddr} \"" /apollo-config/${targetENV}/scripts/startup.sh
+	      sed -i -e "/^SERVER_PORT=.*$/a\export JAVA_OPTS=\"\$JAVA_OPTS -Deureka.instance.ip-address=${targetEnvAddr} \"" /apollo-admin/${targetENV}/scripts/startup.sh
     fi
   fi
     /apollo-config/${targetENV}/scripts/startup.sh
@@ -93,28 +93,28 @@ if [ "$#" == "0" ];then
       if [[ -n "${DEV_URL}" ]];then
           echo "conn remote dev server."
       elif [[ -n "${DEV_DB}" ]];then
-          startENV dev ${DEV_DB} ${DEV_DB_USER} ${DEV_DB_PWD} ${DEV_ADMIN_PORT} ${DEV_CONFIG_PORT} ${DEV_IP}
+          startENV dev ${DEV_DB} ${DEV_DB_USER} ${DEV_DB_PWD} ${DEV_ADMIN_PORT} ${DEV_CONFIG_PORT} ${DEV_LB}
       fi
     
 # fat
       if [[ -n "${FAT_URL}" ]];then
           echo "conn remote fat server."
       elif [[ -n "${FAT_DB}" ]];then
-          startENV fat ${FAT_DB} ${FAT_DB_USER} ${FAT_DB_PWD} ${FAT_ADMIN_PORT} ${FAT_CONFIG_PORT} ${FAT_IP}
+          startENV fat ${FAT_DB} ${FAT_DB_USER} ${FAT_DB_PWD} ${FAT_ADMIN_PORT} ${FAT_CONFIG_PORT} ${FAT_LB}
       fi
     
 # uat
       if [[ -n "${UAT_URL}" ]];then
           echo "conn remote fat server."
       elif [[ -n "${UAT_DB}" ]];then
-          startENV uat ${UAT_DB} ${UAT_DB_USER} ${UAT_DB_PWD} ${UAT_ADMIN_PORT} ${UAT_CONFIG_PORT} ${UAT_IP}
+          startENV uat ${UAT_DB} ${UAT_DB_USER} ${UAT_DB_PWD} ${UAT_ADMIN_PORT} ${UAT_CONFIG_PORT} ${UAT_LB}
       fi
     
 # pro
       if [[ -n "${PRO_URL}" ]];then
           echo "conn remote pro server."
       elif [[ -n "${PRO_DB}" ]];then
-          startENV pro ${PRO_DB} ${PRO_DB_USER} ${PRO_DB_PWD} ${PRO_ADMIN_PORT} ${PRO_CONFIG_PORT} ${PRO_IP}
+          startENV pro ${PRO_DB} ${PRO_DB_USER} ${PRO_DB_PWD} ${PRO_ADMIN_PORT} ${PRO_CONFIG_PORT} ${PRO_LB}
     
       fi
 # 若是早于config服务启动,则有概率会一直找不到config

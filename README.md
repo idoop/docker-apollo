@@ -25,8 +25,8 @@ version: '2'
 services:
   apollo:
     image: idoop/docker-apollo:latest
-    # 目前只能用host模式,否则将出现504错误,如果想改端口,参考下方修改端口的环境变量
-    network_mode: "host"
+    # portal若出现504错误,则将网络模式改为host. host模式下如果想改端口,参考下方修改端口的环境变量
+    # network_mode: "host"
     # 如果需要查看日志,挂载容器中的/opt路径出来即可.
     # volumes:
     #   - ./logs:/opt
@@ -91,7 +91,7 @@ Portal:
 > - PRO_URL: 远程pro服务,格式为http://**ip:port** 或 **domain:port** 不可与PRO_DB同时指定,数据库中ServerConfig中eureka.service.url的地址与端口需正确.
 
 Dev:
-> - DEV_IP: 若使用分布式负载均衡,则输入负载均衡IP.
+> - DEV_LB: 若使用分布式负载均衡,则输入负载均衡地址,格式为IP或域名.
 > - DEV_DB: dev 环境数据库地址, 未设置则代表不开启该服务
 > - DEV_DB_USER: 数据库用户
 > - DEV_DB_PWD: 数据库密码
@@ -99,7 +99,7 @@ Dev:
 > - DEV_CONFIG_PORT: config服务端口,默认8080,若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
 
 Fat:
-> - FAT_IP: 若使用分布式负载均衡,则输入负载均衡IP.
+> - FAT_LB: 若使用分布式负载均衡,则输入负载均衡地址,,格式为IP或域名.
 > - FAT_DB: fat 环境数据库地址, 未设置则代表不开启该服务
 > - FAT_DB_USER: 数据库用户
 > - FAT_DB_PWD: 数据库密码
@@ -107,7 +107,7 @@ Fat:
 > - FAT_CONFIG_PORT: config服务端口,默认8081.若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
 
 Uat:
-> - UAT_IP: 若使用分布式负载均衡,则输入负载均衡IP.
+> - UAT_LB: 若使用分布式负载均衡,则输入负载均衡地址,,格式为IP或域名.
 > - UAT_DB: uat 环境数据库地址, 未设置则代表不开启该服务
 > - UAT_DB_USER: 数据库用户
 > - UAT_DB_PWD: 数据库密码
@@ -115,7 +115,7 @@ Uat:
 > - UAT_CONFIG_PORT: config服务端口,默认8082.若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
 
 Pro:
-> - PRO_IP: 若使用分布式负载均衡,则输入负载均衡IP.
+> - PRO_LB: 若使用分布式负载均衡,则输入负载均衡地址,,格式为IP或域名.
 > - PRO_DB: pro 环境数据库地址, 未设置则代表不开启该服务
 > - PRO_DB_USER: 数据库用户
 > - PRO_DB_PWD: 数据库密码
