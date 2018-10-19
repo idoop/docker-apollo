@@ -8,12 +8,13 @@
 
 [Docker image](https://hub.docker.com/r/idoop/docker-apollo/) for [Ctrip/Apollo](https://github.com/ctripcorp/apollo)(携程Apollo)
 
-**本镜像包含Portal面板,以及Dev/Fat/Uat/Pro环境服务(All in one),皆可独立使用.**
+**本镜像包含Portal面板,以及Dev/Fat/Uat/Pro环境服务(All in one),皆可独立使用,支持分布式部署和Kubernetes部署.**
 
 
 ## Docker Tags: 
 
-- `1.1.0` `latest`
+- `1.1.1` `latest`
+- `1.1.0` 
 - `1.0.0` 
 - `0.11.0` 
 - `0.10.2`
