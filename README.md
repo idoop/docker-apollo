@@ -69,7 +69,7 @@ services:
 
 > 只启动Portal,用时20s,占内存280M.
 >
-> Portal+dev,用时90s,占内存999M.
+> Portal+dev(admin+config),用时90s,占内存999M.
 >
 > Portal+dev+fat,用时154s,占内存1674M.
 >
@@ -80,6 +80,8 @@ services:
 ## Environment 参数
 
 若要开启相应服务,只需配置对应环境的env的数据库地址与账号密码,数据库密码不能为空。
+
+> - ONLY_CONFIG: 若是分布式部署或是kubernetes中部署,可配置值为`TRUE`,使得容器中只启动config服务,节省内存资源.详细用法参考wiki.
 
 Portal:
 > - PORTAL_DB: portal 的数据库地址, 未设置则代表不开启该服务
@@ -122,6 +124,7 @@ Pro:
 > - PRO_DB_PWD: 数据库密码
 > - PRO_ADMIN_PORT: admin服务端口,默认8093.若网络模式为host,可指定更改.
 > - PRO_CONFIG_PORT: config服务端口,默认8083.若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
+
 
 ## 用例
 
