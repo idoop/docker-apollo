@@ -1,7 +1,7 @@
 FROM maven:alpine
 MAINTAINER Swire Chen <idoop@msn.cn>
 
-ENV VERSION=1.1.0 \
+ENV VERSION=1.1.1 \
     PORTAL_PORT=8070 \
     DEV_ADMIN_PORT=8090 \
     FAT_ADMIN_PORT=8091 \
@@ -15,7 +15,7 @@ ENV VERSION=1.1.0 \
 ARG APOLLO_URL=https://github.com/ctripcorp/apollo/archive/v${VERSION}.tar.gz
 
 COPY docker-entrypoint /usr/local/bin/docker-entrypoint
-COPY healthcheck.sh    /usr/local/bin/healthcheck.sh
+COPY healthcheck    /usr/local/bin/healthcheck
 
 RUN wget ${APOLLO_URL} -O apollo.tar.gz && tar -zxf apollo.tar.gz && \
     rm apollo.tar.gz && test -e apollo-${VERSION} && \
@@ -30,9 +30,9 @@ RUN wget ${APOLLO_URL} -O apollo.tar.gz && tar -zxf apollo.tar.gz && \
        apollo-${VERSION}/apollo-adminservice/target/apollo-adminservice-${VERSION}-github.zip \
        apollo-${VERSION}/apollo-configservice/target/apollo-configservice-${VERSION}-github.zip / && \
     rm -rf apollo-${VERSION} && \
-    chmod +x /usr/local/bin/docker-entrypoint /usr/local/bin/healthcheck.sh
+    chmod +x /usr/local/bin/docker-entrypoint /usr/local/bin/healthcheck
 
-HEALTHCHECK --interval=5m --timeout=3s CMD bash /usr/local/bin/healthcheck.sh
+HEALTHCHECK --interval=5m --timeout=3s CMD bash /usr/local/bin/healthcheck
 
 EXPOSE 8070 8080 8081 8082 8083 8090 8091 8092 8093
 # EXPOSE 80-60000
