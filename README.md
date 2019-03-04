@@ -13,7 +13,8 @@
 
 ## Docker Tags: 
 
-- `1.2.0` `latest`
+- `1.3.0` `latest`
+- `1.2.0` 
 - `1.1.2` 
 - `1.1.1` 
 - `1.1.0` 
@@ -30,14 +31,18 @@ services:
     image: idoop/docker-apollo:latest
     # portal若出现504错误,则将网络模式改为host. host模式下如果想改端口,参考下方修改端口的环境变量
     # network_mode: "host"
-    # 如果需要查看日志,挂载容器中的/opt路径出来即可.
     # volumes:
-    #   - ./logs:/opt
+      # 如果需要查看日志,挂载容器中的/opt路径出来即可.
+    #  - ./logs:/opt
+      # 如果portal需要开启ldap或ad域验证,须挂载此ldap配置文件
+    #  - ./application-ldap.yml:/apollo-portal/config/application-ldap.yml:ro
     environment:
       # 开启Portal,默认端口: 8070
       PORTAL_DB: jdbc:mysql://192.168.1.28:3306/ApolloPortalDB?characterEncoding=utf8
       PORTAL_DB_USER: root
       PORTAL_DB_PWD: toor
+      # 如果portal需要开启ldap或ad域验证,须设置该环境变量为TRUE
+      #PORTAL_LDAP: "TRUE"
       
       # 开启dev环境, 默认端口: config 8080, admin 8090
       DEV_DB: jdbc:mysql://192.168.1.28:3306/ApolloConfigDBDev?characterEncoding=utf8
@@ -90,6 +95,7 @@ Portal:
 > - PORTAL_DB_USER: 数据库用户
 > - PORTAL_DB_PWD: 数据库密码
 > - PORTAL_PORT: portal服务的端口,默认8070.若网络模式为host,可更改.
+> - PORTAL_LDAP: 若要开启LDAP登录验证,设置该值为**TRUE**,并挂载配置文件到`/apollo-portal/config/application-ldap.yml`容器中,详情参考[官方说明](https://github.com/ctripcorp/apollo/wiki/Portal-%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD).
 > - DEV_URL: 远程dev服务,格式为http://**ip:port** 或 **domain:port** 不可与DEV_DB同时指定,数据库中ServerConfig中eureka.service.url的地址与端口需正确.
 > - FAT_URL: 远程fat服务,格式为http://**ip:port** 或 **domain:port** 不可与FAT_DB同时指定,数据库中ServerConfig中eureka.service.url的地址与端口需正确.
 > - UAT_URL: 远程uat服务,格式为http://**ip:port** 或 **domain:port** 不可与UAT_DB同时指定,数据库中ServerConfig中eureka.service.url的地址与端口需正确.

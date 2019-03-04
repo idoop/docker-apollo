@@ -1,0 +1,15 @@
+spring:
+  ldap:
+    base: "dc=ldap,dc=example,dc=com"
+    username: "cn=admin,cn=Users,dc=ldap,dc=example,dc=com"
+    password: "password"
+    searchFilter: "(uid={0})"  # 用户过滤器,登录的时候用这个过滤器来搜索用户,如果是AD域,改为 (sAMAccountName={0})
+    urls:
+    - "ldap://ldap.example.com:389"
+
+ldap:
+  mapping: # 配置 ldap 属性
+    objectClass: "user" # ldap 用户 objectClass 配置
+    loginId: "uid" # ldap 用户惟一 id,用来作为登录的 id,如果是AD域,改为 sAMAccountName
+    userDisplayName: "cn" # ldap 用户名,用来作为显示名
+    email: "mail" # ldap 邮箱属性 如果是AD域,且是用userPrincipalName作为mail属性,则替换为 userPrincipalName
