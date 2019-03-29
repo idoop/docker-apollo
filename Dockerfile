@@ -20,10 +20,10 @@ COPY healthcheck    /usr/local/bin/healthcheck
 RUN wget ${APOLLO_URL} -O apollo.tar.gz && tar -zxf apollo.tar.gz && \
     rm apollo.tar.gz && test -e apollo-${VERSION} && \
     sed -e "s/db_password=/db_password=toor/g"  \
-        -e "s/^dev_meta.*/dev_meta=http:\/\/localhost:${CONFIG_DEV_PORT}/" \
-        -e "s/^fat_meta.*/fat_meta=http:\/\/localhost:${CONFIG_FAT_PORT}/" \
-        -e "s/^uat_meta.*/uat_meta=http:\/\/localhost:${CONFIG_UAT_PORT}/" \
-        -e "s/^pro_meta.*/pro_meta=http:\/\/localhost:${CONFIG_PRO_PORT}/" -i apollo-${VERSION}/scripts/build.sh && \
+        -e "s/^dev_meta.*/dev_meta=http:\/\/localhost:${DEV_CONFIG_PORT}/" \
+        -e "s/^fat_meta.*/fat_meta=http:\/\/localhost:${FAT_CONFIG_PORT}/" \
+        -e "s/^uat_meta.*/uat_meta=http:\/\/localhost:${UAT_CONFIG_PORT}/" \
+        -e "s/^pro_meta.*/pro_meta=http:\/\/localhost:${PRO_CONFIG_PORT}/" -i apollo-${VERSION}/scripts/build.sh && \
     bash apollo-${VERSION}/scripts/build.sh && rm -rf /root/.m2 && \
     mkdir /apollo-admin/dev /apollo-admin/fat /apollo-admin/uat /apollo-admin/pro /apollo-config/dev /apollo-config/fat /apollo-config/uat /apollo-config/pro /apollo-portal -p && \
     mv apollo-${VERSION}/apollo-portal/target/apollo-portal-${VERSION}-github.zip  \
