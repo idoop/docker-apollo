@@ -13,19 +13,17 @@
 
 ## Docker Tags: 
 
-- `1.3.0` `latest`
-- `1.2.0` 
-- `1.1.2` 
-- `1.1.1` 
-- `1.1.0` 
-- `1.0.0` 
-- `0.11.0` 
-- `0.10.2`
+- [`1.4.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.4.0) `latest`
+- [`1.3.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.3.0)
+- [`1.2.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.2.0)
+- [`1.1.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.1.1) [`1.1.2`](https://github.com/ctripcorp/apollo/releases/tag/v1.1.2)
+- [`1.0.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.0.0)
+- [`0.10.2`](https://github.com/ctripcorp/apollo/releases/tag/v0.10.2) [`0.11.0`](https://github.com/ctripcorp/apollo/releases/tag/v0.11.0)
 
 ## 使用 Docker Compose 启动
 假设想要开启Protal/Dev/Fat,那么建立一个`docker-compose.yaml`文件,内容大致如下所示,只需将mysql数据库地址与库名以及账号密码替换为自己的,并配置好数据库:
 ``` yaml
-version: '2'
+version: '2.2'
 services:
   apollo:
     image: idoop/docker-apollo:latest
@@ -53,9 +51,9 @@ services:
       FAT_DB: jdbc:mysql://192.168.1.28:3306/ApolloConfigDBFat?characterEncoding=utf8
       FAT_DB_USER: root
       FAT_DB_PWD: toor
-      # 可修改端口.
-      FAT_CONFIG_PORT: 8050
-      FAT_ADMIN_PORT: 8051
+      # 若network_mode为host,则可修改端口,如下:
+      #FAT_CONFIG_PORT: 8050
+      #FAT_ADMIN_PORT: 8051
            
       # 指定远程uat地址
       #UAT_URL: http://192.168.1.2:8080
