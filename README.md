@@ -13,7 +13,8 @@
 
 ## Docker Tags: 
 
-- [`1.4.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.4.0) `latest`
+- [`1.5.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.5.0) `latest`
+- [`1.4.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.4.0)
 - [`1.3.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.3.0)
 - [`1.2.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.2.0)
 - [`1.1.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.1.1) [`1.1.2`](https://github.com/ctripcorp/apollo/releases/tag/v1.1.2)
@@ -68,7 +69,7 @@ services:
 
 ## 资源消耗
 
-本镜像启动慢,且耗内存,因此有多开需求的请注意小鸡的内存是否够用. 
+Apollo为Java程序,所以镜像启动慢,且耗内存,因此有多开服务环境需求的请注意小鸡的内存是否够用. 
 
 测试机为4核2.6G的x5650：
 
