@@ -13,7 +13,8 @@
 
 ## Docker Tags: 
 
-- [`1.5.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.5.1) `latest`
+- [`1.6.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.6.1) `latest`
+- [`1.5.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.5.1)
 - [`1.5.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.5.0) 
 - [`1.4.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.4.0)
 - [`1.3.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.3.0)
