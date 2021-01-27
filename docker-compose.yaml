@@ -5,22 +5,29 @@ services:
     container_name: apollo
     network_mode: "host"
     restart: always
-#    volumes:
+    volumes:
+    - ./logs:/opt
 #    - ./application-ldap.yml:/apollo-portal/config/application-ldap.yml:ro #ldap配置文件挂载路径
-# 启动前,确认对应环境的数据库已经建立，否则apollo无法启动.
+
+
+# 启动前,确认对应环境的数据库已经建立，否则apollo无法启动,使用官方sql文件即可创建:
+# portal:  https://raw.githubusercontent.com/ctripcorp/apollo/master/scripts/sql/apolloconfigdb.sql
+# config:  https://raw.githubusercontent.com/ctripcorp/apollo/master/scripts/sql/apolloportaldb.sql
 # 默认端口:portal:8070; dev:8080,8090; fat:8081,8091; uat:8082,8092; pro:8083,8093
     environment:
+      # 注意Portal Database 的 Name,本处使用官方默认名
       PORTAL_DB: jdbc:mysql://10.0.0.8:3306/ApolloPortalDB?characterEncoding=utf8
       PORTAL_DB_USER: root
       PORTAL_DB_PWD: password
-#      PORTAL_PORT: 80
-#      PORTAL_LDAP: "TRUE"
+#      PORTAL_PORT: 80     # Host 网络模式下改端口
+#      PORTAL_LDAP: "TRUE" # LDAP 认证
 
-      DEV_DB: jdbc:mysql://10.0.0.8:3306/ApolloConfigDBDev?characterEncoding=utf8
+      # 注意Config Database 的 Name,本处使用官方默认名
+      DEV_DB: jdbc:mysql://10.0.0.8:3306/ApolloConfigDB?characterEncoding=utf8
       DEV_DB_USER: root
       DEV_DB_PWD: password
       
-      FAT_DB: jdbc:mysql://10.0.0.8:3306/ApolloConfigDBFat?characterEncoding=utf8
+      #FAT_DB: jdbc:mysql://10.0.0.8:3306/ApolloConfigDBFat?characterEncoding=utf8
       FAT_DB_USER: root
       FAT_DB_PWD: password
 
