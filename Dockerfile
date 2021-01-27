@@ -1,7 +1,7 @@
 FROM maven:alpine
 LABEL maintainer="Swire Chen <idoop@msn.cn>"
 
-ENV VERSION=1.6.2 \
+ENV VERSION=1.7.0 \
     PORTAL_PORT=8070 \
     DEV_ADMIN_PORT=8090 \
     FAT_ADMIN_PORT=8091 \
