@@ -13,7 +13,8 @@
 
 ## Docker Tags: 
 
-- [`1.7.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.7.0) `latest`
+- [`1.7.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.7.1) `latest`
+- [`1.7.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.7.0)
 - [`1.6.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.6.1) [`1.6.2`](https://github.com/ctripcorp/apollo/releases/tag/v1.6.2) 
 - [`1.5.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.5.0) [`1.5.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.5.1)
 - [`1.4.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.4.0)
@@ -38,19 +39,19 @@ services:
       # 如果portal需要开启ldap或ad域验证,须挂载此ldap配置文件
     #  - ./application-ldap.yml:/apollo-portal/config/application-ldap.yml:ro
     environment:
-      # 开启Portal,默认端口: 8070
+      # 开启Portal实例,默认端口: 8070
       PORTAL_DB: jdbc:mysql://192.168.1.28:3306/ApolloPortalDB?characterEncoding=utf8
       PORTAL_DB_USER: root
       PORTAL_DB_PWD: toor
       # 如果portal需要开启ldap或ad域验证,须设置该环境变量为TRUE
       #PORTAL_LDAP: "TRUE"
       
-      # 开启dev环境, 默认端口: config 8080, admin 8090
+      # 开启dev环境实例, 默认端口: config 8080, admin 8090
       DEV_DB: jdbc:mysql://192.168.1.28:3306/ApolloConfigDBDev?characterEncoding=utf8
       DEV_DB_USER: root
       DEV_DB_PWD: toor
       
-      # 开启fat环境, 默认端口: config 8081, admin 8091
+      # 开启fat环境实例, 默认端口: config 8081, admin 8091
       FAT_DB: jdbc:mysql://192.168.1.28:3306/ApolloConfigDBFat?characterEncoding=utf8
       FAT_DB_USER: root
       FAT_DB_PWD: toor
@@ -58,10 +59,10 @@ services:
       #FAT_CONFIG_PORT: 8050
       #FAT_ADMIN_PORT: 8051
            
-      # 指定远程uat地址
+      # 给Portal指定远程uat地址
       #UAT_URL: http://192.168.1.2:8080
       
-      # 指定远程pro地址
+      # 给Portal指定远程pro地址
       #PRO_URL: http://www.example.com:8080
 ```
 
@@ -73,9 +74,9 @@ services:
 
 Apollo为Java程序,所以镜像启动慢,且耗内存,因此有多开服务环境需求的请注意小鸡的内存是否够用. 
 
-测试机为4核2.6G的x5650：
+测试机配置为4U8G, CPU为2.6GHz的x5650：
 
-> 只启动Portal,用时20s,占内存280M.
+> 只启动Portal实例,用时20s,占内存280M.
 >
 > Portal+dev(admin+config),用时90s,占内存999M.
 >
@@ -91,7 +92,7 @@ Apollo为Java程序,所以镜像启动慢,且耗内存,因此有多开服务环�
 
 > - ONLY_CONFIG: 若是分布式部署或是kubernetes中部署,可配置值为`TRUE`,使得容器中只启动config服务,节省内存资源.详细用法参考wiki.
 
-Portal:
+Portal 实例接受参数:
 > - PORTAL_DB: portal 的数据库地址, 未设置则代表不开启该服务
 > - PORTAL_DB_USER: 数据库用户
 > - PORTAL_DB_PWD: 数据库密码
@@ -102,7 +103,7 @@ Portal:
 > - UAT_URL: 远程uat服务,格式为http://**ip:port** 或 **domain:port** 不可与UAT_DB同时指定,数据库中ServerConfig中eureka.service.url的地址与端口需正确.
 > - PRO_URL: 远程pro服务,格式为http://**ip:port** 或 **domain:port** 不可与PRO_DB同时指定,数据库中ServerConfig中eureka.service.url的地址与端口需正确.
 
-Dev:
+Dev 实例接受参数:
 > - DEV_LB: 若使用分布式负载均衡,则输入负载均衡地址,格式为IP或域名.
 > - DEV_DB: dev 环境数据库地址, 未设置则代表不开启该服务
 > - DEV_DB_USER: 数据库用户
@@ -110,7 +111,7 @@ Dev:
 > - DEV_ADMIN_PORT: admin服务端口,默认8090,若网络模式为host,可指定更改.
 > - DEV_CONFIG_PORT: config服务端口,默认8080,若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
 
-Fat:
+Fat 实例接受参数:
 > - FAT_LB: 若使用分布式负载均衡,则输入负载均衡地址,,格式为IP或域名.
 > - FAT_DB: fat 环境数据库地址, 未设置则代表不开启该服务
 > - FAT_DB_USER: 数据库用户
@@ -118,7 +119,7 @@ Fat:
 > - FAT_ADMIN_PORT: admin服务端口,默认8091.若网络模式为host,可指定更改.
 > - FAT_CONFIG_PORT: config服务端口,默认8081.若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
 
-Uat:
+Uat 实例接受参数:
 > - UAT_LB: 若使用分布式负载均衡,则输入负载均衡地址,,格式为IP或域名.
 > - UAT_DB: uat 环境数据库地址, 未设置则代表不开启该服务
 > - UAT_DB_USER: 数据库用户
@@ -126,7 +127,7 @@ Uat:
 > - UAT_ADMIN_PORT: admin服务端口,默认8092.若网络模式为host,可指定更改.
 > - UAT_CONFIG_PORT: config服务端口,默认8082.若网络模式为host,可指定更改,需要与本数据库中的ServerConfig中eureka.service.url端口相同.
 
-Pro:
+Pro 实例接受参数:
 > - PRO_LB: 若使用分布式负载均衡,则输入负载均衡地址,,格式为IP或域名.
 > - PRO_DB: pro 环境数据库地址, 未设置则代表不开启该服务
 > - PRO_DB_USER: 数据库用户
