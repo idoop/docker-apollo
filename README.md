@@ -1,10 +1,10 @@
 # docker-apollo
 
-[![Docker Build Status](https://img.shields.io/docker/build/idoop/docker-apollo.svg)](https://hub.docker.com/r/idoop/docker-apollo/)
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/idoop/docker-apollo)](https://hub.docker.com/r/idoop/docker-apollo/)
+[![Docker Automated build](https://img.shields.io/docker/automated/idoop/docker-apollo)](https://hub.docker.com/r/idoop/docker-apollo/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/idoop/docker-apollo.svg)](https://hub.docker.com/r/idoop/docker-apollo/)
-[![Docker Automated build](https://img.shields.io/docker/automated/idoop/docker-apollo.svg)](https://hub.docker.com/r/idoop/docker-apollo/)
-[![ImageLayers Size](https://img.shields.io/imagelayers/image-size/idoop/docker-apollo/latest.svg)](https://hub.docker.com/r/idoop/docker-apollo/)
-[![ImageLayers Layers](https://img.shields.io/imagelayers/layers/idoop/docker-apollo/latest.svg)](https://hub.docker.com/r/idoop/docker-apollo/)
+[![Docker Stars](https://img.shields.io/docker/stars/idoop/docker-apollo)](https://hub.docker.com/r/idoop/docker-apollo/)
+[![ImageLayers Size](https://img.shields.io/docker/image-size/idoop/docker-apollo/latest)](https://hub.docker.com/r/idoop/docker-apollo/)
 
 [Docker image](https://hub.docker.com/r/idoop/docker-apollo/) for [Ctrip/Apollo](https://github.com/ctripcorp/apollo)(携程Apollo)
 
@@ -13,7 +13,9 @@
 
 ## Docker Tags: 
 
-- [`1.8.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.8.0) `latest`
+- [`1.8.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.8.1) `latest`
+- [`1.8.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.8.0) [`1.8.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.8.1)
+  - [v1.7.x 升级到v1.8.0必须应用数据库新表](https://github.com/ctripcorp/apollo/releases/tag/v1.8.0)
 - [`1.7.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.7.0) [`1.7.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.7.1) [`1.7.2`](https://github.com/ctripcorp/apollo/releases/tag/v1.7.2)
 - [`1.6.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.6.1) [`1.6.2`](https://github.com/ctripcorp/apollo/releases/tag/v1.6.2) 
 - [`1.5.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.5.0) [`1.5.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.5.1)
