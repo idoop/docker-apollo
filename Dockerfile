@@ -1,7 +1,7 @@
 FROM maven:alpine
 LABEL maintainer="Swire Chen <idoop@msn.cn>"
 
-ENV VERSION=1.7.2 \
+ENV VERSION=1.8.0 \
     PORTAL_PORT=8070 \
     DEV_ADMIN_PORT=8090 \
     FAT_ADMIN_PORT=8091 \
@@ -24,7 +24,6 @@ RUN wget ${APOLLO_URL} -O apollo.tar.gz && tar -zxf apollo.tar.gz && \
         -e "s/^fat_meta.*/fat_meta=http:\/\/localhost:${FAT_CONFIG_PORT}/" \
         -e "s/^uat_meta.*/uat_meta=http:\/\/localhost:${UAT_CONFIG_PORT}/" \
         -e "s/^pro_meta.*/pro_meta=http:\/\/localhost:${PRO_CONFIG_PORT}/" -i apollo-${VERSION}/scripts/build.sh && \
-	sed -e "s/<revision>1.7.1<\/revision>/<revision>1.7.2<\/revision>/" -i apollo-${VERSION}/pom.xml && \
     bash apollo-${VERSION}/scripts/build.sh && rm -rf /root/.m2 && \
     mkdir /apollo-admin/dev /apollo-admin/fat /apollo-admin/uat /apollo-admin/pro /apollo-config/dev /apollo-config/fat /apollo-config/uat /apollo-config/pro /apollo-portal -p && \
     mv apollo-${VERSION}/apollo-portal/target/apollo-portal-${VERSION}-github.zip  \
