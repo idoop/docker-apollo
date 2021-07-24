@@ -5,6 +5,8 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/idoop/docker-apollo.svg)](https://hub.docker.com/r/idoop/docker-apollo/)
 [![Docker Stars](https://img.shields.io/docker/stars/idoop/docker-apollo)](https://hub.docker.com/r/idoop/docker-apollo/)
 [![ImageLayers Size](https://img.shields.io/docker/image-size/idoop/docker-apollo/latest)](https://hub.docker.com/r/idoop/docker-apollo/)
+[![GitHub stars](https://img.shields.io/github/stars/idoop/docker-apollo)](https://github.com/idoop/docker-apollo)
+
 
 [Docker image](https://hub.docker.com/r/idoop/docker-apollo/) for [Ctrip/Apollo](https://github.com/ctripcorp/apollo)(携程Apollo)
 
@@ -13,8 +15,8 @@
 
 ## Docker Tags: 
 
-- [`1.8.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.8.1) `latest`
-- [`1.8.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.8.0) [`1.8.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.8.1)
+- [`1.8.2`](https://github.com/ctripcorp/apollo/releases/tag/v1.8.2) `latest`
+- [`1.8.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.8.0) [`1.8.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.8.1) [`1.8.2`](https://github.com/ctripcorp/apollo/releases/tag/v1.8.2)
   - [v1.7.x 升级到v1.8.0必须应用数据库新表](https://github.com/ctripcorp/apollo/releases/tag/v1.8.0)
 - [`1.7.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.7.0) [`1.7.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.7.1) [`1.7.2`](https://github.com/ctripcorp/apollo/releases/tag/v1.7.2)
 - [`1.6.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.6.1) [`1.6.2`](https://github.com/ctripcorp/apollo/releases/tag/v1.6.2) 
