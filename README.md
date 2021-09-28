@@ -143,3 +143,7 @@ Pro 实例接受参数:
 ## 用例
 
 > **详细用例请看[Wiki](https://github.com/idoop/docker-apollo/wiki)**
+
+## License
+
+The project is licensed under the [Apache 2 license](https://github.com/idoop/docker-apollo/blob/master/LICENSE).
