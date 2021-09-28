@@ -15,7 +15,8 @@
 
 ## Docker Tags: 
 
-- [`1.8.2`](https://github.com/ctripcorp/apollo/releases/tag/v1.8.2) `latest`
+- [`1.9.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.9.0) `latest`
+  - [v1.8.x 升级到v1.9.0必须应用数据库新表](https://github.com/ctripcorp/apollo/releases/tag/v1.9.0)
 - [`1.8.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.8.0) [`1.8.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.8.1) [`1.8.2`](https://github.com/ctripcorp/apollo/releases/tag/v1.8.2)
   - [v1.7.x 升级到v1.8.0必须应用数据库新表](https://github.com/ctripcorp/apollo/releases/tag/v1.8.0)
 - [`1.7.0`](https://github.com/ctripcorp/apollo/releases/tag/v1.7.0) [`1.7.1`](https://github.com/ctripcorp/apollo/releases/tag/v1.7.1) [`1.7.2`](https://github.com/ctripcorp/apollo/releases/tag/v1.7.2)
