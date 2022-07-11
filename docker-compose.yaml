@@ -11,8 +11,8 @@ services:
 
 
 # 启动前,确认对应环境的数据库已经建立，否则apollo无法启动,使用官方sql文件即可创建:
-# portal:  https://raw.githubusercontent.com/ctripcorp/apollo/master/scripts/sql/apolloconfigdb.sql
-# config:  https://raw.githubusercontent.com/ctripcorp/apollo/master/scripts/sql/apolloportaldb.sql
+# config: curl -O https://raw.githubusercontent.com/ctripcorp/apollo/master/scripts/sql/apolloconfigdb.sql
+# portal: curl -O https://raw.githubusercontent.com/ctripcorp/apollo/master/scripts/sql/apolloportaldb.sql
 # 默认端口:portal:8070; dev:8080,8090; fat:8081,8091; uat:8082,8092; pro:8083,8093
     environment:
       # 注意Portal Database 的 Name,本处使用官方默认名
